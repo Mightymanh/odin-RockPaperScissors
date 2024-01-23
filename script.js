@@ -8,7 +8,10 @@ function playRound(playerSelection, computerSelection) {
     playerSelection = playerSelection[0].toUpperCase() + playerSelection.substring(1).toLowerCase();
     if (playerSelection == computerSelection) {
         // tie - re-playing the round?
-        return "Tie";
+        console.log("Tie! Play this round again.");
+        playerSelection = prompt("Enter your play: it is either Rock or Paper or Scissors");
+        computerSelection = getComputerChoice();
+        return playRound(playerSelection, computerSelection);
     }
     else if ((playerSelection == "Rock" && computerSelection == "Scissors") || (playerSelection == "Scissors" && computerSelection == "Paper") || (playerSelection == "Paper" && computerSelection == "Rock")) {
         return "You Win! " + playerSelection + " beats " + computerSelection;
@@ -18,6 +21,16 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-const playerSelection = "rock";
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+function game() {
+    for (let i = 1; i <= 5; i++) {
+        playerSelection = prompt("Enter your play: it is either Rock or Paper or Scissors");
+        console.log(playerSelection);
+        while (playerSelection == null || (playerSelection.toLowerCase() != "rock" && playerSelection.toLowerCase() != "paper" && playerSelection.toLowerCase() != "scissors")) {
+            playerSelection = prompt("Input again!!! it is either Rock or Paper or Scissors");
+            console.log(playerSelection);
+        }
+        let computerSelection = getComputerChoice();
+        let result = playRound(playerSelection, computerSelection);
+        console.log(`Round ${i}: ${result}`);
+    }
+}
